@@ -40,13 +40,13 @@ def numberToWords(N):
             10:'ten', 
             11:'eleven', 
             12:'twelve', 
-            13:'three ten', 
-            14:'four ten', 
-            15:'five ten',
-            16:'six ten', 
+            13:'three-ten', 
+            14:'four-ten', 
+            15:'five-ten',
+            16:'six-ten', 
             17:'seven-ten', 
-            18:'eight ten', 
-            19:'nine ten'
+            18:'eight-ten', 
+            19:'nine-ten'
             }
     
     tens = [
