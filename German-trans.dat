@@ -1,0 +1,11 @@
+accept: 1 --> eins
+accept: 10 --> zehn
+accept: 13 --> drei-zehn
+accept: 20 --> zwanzig
+reject
+accept: 30 --> dreißig
+accept: 41 --> ein-und-vierzig
+accept: 65 --> fünf-und-sechzig
+accept: 77 --> sieben-und-siebzig
+accept: 93 --> drei-und-neunzig
+reject

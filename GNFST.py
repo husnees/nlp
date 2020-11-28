@@ -11,6 +11,7 @@ Team Member:
 '''
 
 from nltk.nltk_contrib.fst.fst import *
+import os
 
 
 class myFST(FST):    
@@ -18,7 +19,7 @@ class myFST(FST):
         self.inp = iput.split(" ")[::-1] if '-' not in iput else iput.split("-")     
         # print(self.inp)
         transduce_inp = f.transduce(self.inp)
-        print(transduce_inp)
+        # print(transduce_inp)
 
         return transduce_inp        
 
@@ -81,18 +82,20 @@ def mapping(inp, outp):
     number = eval(inp)
     EN_str = number_to_words(number)
     DE_str = outp
-
     transduced = f.recognize(EN_str)
     if transduced:
         transduced = '-'.join(transduced)
-        print(transduced)
+        # print(transduced)
+        print(inp + " --> " + transduced)
         if transduced== DE_str:
             # input-output mapping
-            print("accept: " + str(number) + " --> " + transduced)
+            result = "accept: " + str(number) + " --> " + transduced
         else:
-            print("reject")    
+            result = "reject"
     else:
-        print("reject")
+        result = "reject"
+    
+    return result
 
 
 def finite_state(f):
@@ -174,14 +177,27 @@ def read_file():
 
     return inp, outp
     
+def write_file(res):
+    if os.path.exists("German-trans.dat"):
+        os.remove("German-trans.dat")
+    outfile = open("German-trans.dat", "a", encoding='utf-8')
+    for i in res:
+        outfile.write("".join(i) + "\n")
+    outfile.close()
 
 if __name__ == '__main__':
     f = myFST('Finite State Transducer for German Numbers')
     finite_state(f)
+    print("Finite State Transducer created !")
     # mapping("60", "sechzig")
-
+    results = []
     inp, outp = read_file()
+    print('Reading file...\nInput: "input.dat"\nOutput: "output.dat"')
     # since line in input file == output file
     for i in range(len(inp)):
-        print("\n" + inp[i] + ' ' + outp[i])
-        mapping(inp[i], outp[i])
+        # print("\n" + inp[i] + ' ' + outp[i])
+        results.append(mapping(inp[i], outp[i]))
+    
+    print('Writing results to "German-trans.dat"...')
+    write_file(results)
+    print("Complete!")
