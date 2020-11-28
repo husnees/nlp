@@ -12,20 +12,18 @@ Team Member:
 
 from nltk.nltk_contrib.fst.fst import *
 
+
 class myFST(FST):    
-    def recognize(self, iput, oput):
-        
-        self.inp = iput.split(" ")[::-1] if '-' not in iput else iput.split("-")
-        self.outp = oput.split("-")     
-
-        print(self.inp)
-
+    def recognize(self, iput):
+        self.inp = iput.split(" ")[::-1] if '-' not in iput else iput.split("-")     
+        # print(self.inp)
         transduce_inp = f.transduce(self.inp)
+        print(transduce_inp)
 
         return transduce_inp        
 
-def numberToWords(N):
 
+def number_to_words(N):
     ones = {
             0:'zero',
             1:'one',
@@ -73,17 +71,31 @@ def numberToWords(N):
     elif 20 <= N <= 99:
         Q, R = divmod(N, 10)
         return tens[Q - 2] + ' and ' + ones[R] if R else tens[Q - 2]
-    elif 100 <= N:
+    elif 100 <= N and N in misc:
         return misc[N]
     else:
         return "reject"
 
-if __name__ == '__main__':
-    number = eval(input("Enter input: "))
-    EN_str = numberToWords(number)
-    DE_str = input("Enter output: ")
 
-    f = myFST('Finite State Transducer for German Numbers')
+def mapping(inp, outp):
+    number = eval(inp)
+    EN_str = number_to_words(number)
+    DE_str = outp
+
+    transduced = f.recognize(EN_str)
+    if transduced:
+        transduced = '-'.join(transduced)
+        print(transduced)
+        if transduced== DE_str:
+            # input-output mapping
+            print("accept: " + str(number) + " --> " + transduced)
+        else:
+            print("reject")    
+    else:
+        print("reject")
+
+
+def finite_state(f):
     # add state
     for i in range(1,9):
         f.add_state(str(i))
@@ -107,6 +119,14 @@ if __name__ == '__main__':
     f.add_arc('1', '6', ['ten'], ['zehn'])
     f.add_arc('1', '6', ['eleven'], ['elf'])
     f.add_arc('1', '6', ['twelve'], ['zwolf'])
+    f.add_arc('1', '6', ['twenty'], ['zwanzig'])
+    f.add_arc('1', '6', ['thirty'], ['dreißig'])
+    f.add_arc('1', '6', ['forty'], ['vierzig'])
+    f.add_arc('1', '6', ['fifty'], ['fünfzig'])
+    f.add_arc('1', '6', ['sixty'], ['sechzig'])
+    f.add_arc('1', '6', ['seventy'], ['siebzig'])
+    f.add_arc('1', '6', ['eighty'], ['achtzig'])
+    f.add_arc('1', '6', ['ninety'], ['neunzig'])
 
     # and
     f.add_arc('3', '5', ['and'], ['und']) # special 'und' for 'ein
@@ -139,15 +159,29 @@ if __name__ == '__main__':
     f.set_final('7')
     f.set_final('8')
 
-    transduced = f.recognize(EN_str, DE_str)
-
-    print(transduced)
-
-    if transduced:
-        print("accept")
-        # input-output mapping
-        print(str(number) + " --> " + "-".join(transduced))
-    else:
-        print("reject")
-
     disp = FSTDisplay(f)
+
+
+def read_file():
+    infile = open("input.dat", "r", encoding='utf-8')
+    outfile = open("output.dat", "r", encoding='utf-8')
+
+    inp = [line.rstrip() for line in infile]
+    outp = [line.rstrip() for line in outfile]
+    
+    infile.close()
+    outfile.close() 
+
+    return inp, outp
+
+
+if __name__ == '__main__':
+    f = myFST('Finite State Transducer for German Numbers')
+    finite_state(f)
+    # mapping("60", "sechzig")
+
+    inp, outp = read_file()
+    # since line in input file == output file
+    for i in range(len(inp)):
+        print("\n" + inp[i] + ' ' + outp[i])
+        mapping(inp[i], outp[i])
