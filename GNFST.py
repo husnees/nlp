@@ -173,7 +173,7 @@ def read_file():
     outfile.close() 
 
     return inp, outp
-
+    
 
 if __name__ == '__main__':
     f = myFST('Finite State Transducer for German Numbers')
