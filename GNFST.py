@@ -5,7 +5,7 @@ Assignment 1: Finite State Transducer for German Numbers
 
 Team Member:
 1.
-2.
+2. Ahmad Husnee bin Abdul Shukor (1711995)
 3. Muhammad Nuqman bin Manja (1719301)
 4. Muhammad Amiruddin bin Bustaman (1711905)
 '''
