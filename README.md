@@ -6,8 +6,8 @@
 
 **Team Member:**
 
-1. Husnee
-2. Akif
+1. Muhammad Akif Rashdan bin Abd Rashid (1725143)
+2. Ahmad Husnee bin Abdul Shukor (1711995)
 3. Muhammad Nuqman bin Manja (1719301)
 4. Muhammad Amiruddin bin Bustaman (1711905)
 
