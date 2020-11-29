@@ -6,8 +6,8 @@ Assignment 1: Finite State Transducer for German Numbers
 Team Member:
 1. Muhammad Akif Rashdan bin Abd Rashid (1725143)
 2. Ahmad Husnee bin Abdul Shukor (1711995) 
-3. Muhammad Nuqman bin Manja (1719301) Senpai 2
-4. Muhammad Amiruddin bin Bustaman (1711905) Senpai 1
+3. Muhammad Nuqman bin Manja (1719301)
+4. Muhammad Amiruddin bin Bustaman (1711905)
 '''
 
 from nltk.nltk_contrib.fst.fst import *
